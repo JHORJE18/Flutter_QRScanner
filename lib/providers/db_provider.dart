@@ -86,4 +86,11 @@ class DBProvider {
 
     return res.isNotEmpty ? ScanModel.fromJson(res.first) : null;
   }
+
+  Future<int> updateScan(ScanModel nuevoScan) async {
+    final db = await database;
+    final res = await db.update('Scans', nuevoScan.toJson(),
+        where: 'id = ?', whereArgs: [nuevoScan.id]);
+    return res;
+  }
 }
