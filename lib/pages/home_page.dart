@@ -4,6 +4,7 @@ import 'package:qr_reader/models/scan_model.dart';
 import 'package:qr_reader/pages/listDirections_page%20copy.dart';
 import 'package:qr_reader/pages/listMap_page.dart';
 import 'package:qr_reader/providers/db_provider.dart';
+import 'package:qr_reader/providers/scan_list_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/widgets/custom_navigationbar.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
@@ -34,12 +35,18 @@ class _HomePageBody extends StatelessWidget {
 
     final currentIndex = uiProvider.selectedMenuOpt;
 
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
+
     switch (currentIndex) {
       case 0:
+        scanListProvider.cargarScansPorTipo('geo');
         return MapsPage();
       case 1:
+        scanListProvider.cargarScansPorTipo('http');
         return DirectionsPage();
       default:
+        scanListProvider.cargarScansPorTipo('geo');
         return MapsPage();
     }
   }
